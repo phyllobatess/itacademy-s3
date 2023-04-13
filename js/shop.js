@@ -81,18 +81,26 @@ function buy(id) {
         }
     }
     // 2. Add found product to the cartList array
-    cartList.push(selectedProduct);
+    cartList.push(selectedProduct); 
+    // console.log(cartList);
+    // calculateTotal();
     
 }
 
 // Exercise 2
 function cleanCart() {
+    cartList.length = 0; // Igualando la longitud a cero conseguimos vaciar el array al llamar a esta función.
 
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+    let suma = 0;
+    for (let i = 0; i < cartList.length; i++) {
+        suma += cartList[i].price;
+    }
+    //console.log(suma);
 }
 
 // Exercise 4
