@@ -73,8 +73,16 @@ var total = 0;
 
 // Exercise 1
 function buy(id) {
+    let selectedProduct;
     // 1. Loop for to the array products to get the item to add to cart
+    for (let i = 0; i < products.length; i++) { 
+        if (products[i].id == id) { //Cuando el id que recibo como pam coincida con el id que busca el bucle, encontramos el product.
+            selectedProduct = products[i];
+        }
+    }
     // 2. Add found product to the cartList array
+    cartList.push(selectedProduct);
+    
 }
 
 // Exercise 2
