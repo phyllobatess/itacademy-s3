@@ -96,7 +96,8 @@ function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-  // Calculate total price of the cart using the "cartList" array
+  // Calculate total price of the cart using the "cartList" array. 
+  //No tiene en cuenta los descuentos:
   
   for (let i = 0; i < cartList.length; i++) {
     total += cartList[i].price;
@@ -132,8 +133,20 @@ function generateCart(cartList) {
 }
 
 // Exercise 5
-function applyPromotionsCart() {
+function applyPromotionsCart(cart) {
   // Apply promotions to each item in the array "cart"
+  for (let i = 0; i < cart.length; i++) { //Para cada elemento de cart comprobamos las dos condiciones:
+    if (cart[i].name == "cooking oil" && cart[i].quantity >= 3) {
+      cart[i].price = 10;
+      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
+    }
+    else if (cart[i].name == "Instant cupcake mixture" && cart[i].quantity >= 10) {
+      cart[i].price = (cart[i].price * 2 / 3).toFixed(3);
+      cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;;
+    }
+
+  }
+  console.log(cart);
 }
 
 // Exercise 6
