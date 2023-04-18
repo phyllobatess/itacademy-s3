@@ -83,30 +83,33 @@ function buy(id) {
   }
   // 2. Add found product to the cartList array
   cartList.push(selectedProduct);
-   console.log(cartList);
+   //console.log(cartList);
   // calculateTotal();
+  generateCart();
 }
 
 // Exercise 2
 function cleanCart() {
   // Dos formas de vaciar un array:
   cartList.length = 0
-  //cart = [];
+  cart = [];
+  printCart();
 }
 
 // Exercise 3
 function calculateTotal() {
+  total = 0;
   // Calculate total price of the cart using the "cartList" array. 
   //No tiene en cuenta los descuentos:
   
-  for (let i = 0; i < cartList.length; i++) {
-    total += cartList[i].price;
+  for (let i = 0; i < cart.length; i++) {
+    total += cart[i].subtotal;
   }
-  console.log(total);
+  return total;
 }
 
 // Exercise 4
-function generateCart(cartList) {
+function generateCart() {
   // Using the "cartlist" array that contains all the items in the shopping cart,
   // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
     for (let i = 0; i < cartList.length; i++) {
@@ -121,27 +124,27 @@ function generateCart(cartList) {
             subtotalWithDiscount:undefined,
           });
         }
-        else{//En caso de que el elemento ya esté dentro del array CART, le añadimos +1 QUANTITY y el subtotal:
+        else{//En caso de que el elemento ya esté dentro del array CART, le añadimos +1 QUANTITY y el subtotal actualizado:
             cart[index].quantity++;
             cart[index].subtotal = cart[index].price * cart[index].quantity;
         }   
     }
-  console.log(cart)
-  calculateTotal();
-  cleanCart(); //Vaciamos el array cartList una vez generamos el arr CART
-   
+  cartList.length=0; //Vaciamos el array cartList una vez generamos el arr CART.
+  applyPromotionsCart();
 }
 
 // Exercise 5
-function applyPromotionsCart(cart) {
+function applyPromotionsCart() {
   // Apply promotions to each item in the array "cart"
   for (let i = 0; i < cart.length; i++) { //Para cada elemento de cart comprobamos las dos condiciones:
     if (cart[i].name == "cooking oil" && cart[i].quantity >= 3) {
       cart[i].price = 10;
+      cart[i].subtotal = cart[i].price * cart[i].quantity;
       cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;
     }
     else if (cart[i].name == "Instant cupcake mixture" && cart[i].quantity >= 10) {
-      cart[i].price = (cart[i].price * 2 / 3).toFixed(3);
+      cart[i].price = (5 * 2 / 3).toFixed(2);
+      cart[i].subtotal = cart[i].price * cart[i].quantity;
       cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;;
     }
 
@@ -150,8 +153,21 @@ function applyPromotionsCart(cart) {
 }
 
 // Exercise 6
-function printCart() {
   // Fill the shopping cart modal manipulating the shopping cart dom
+function printCart() {
+
+  document.getElementById("cart_list").innerHTML = '';
+  let tbody = cart.map(function(c){
+    return "<tr>" +
+                      "<th scope='row'>"+c.name+"</th>" +
+                      "<td>"+c.price+"</td>" +
+                      "<td>"+c.quantity+"</td>" +
+                      "<td>"+c.subtotal+"</td>" +
+                    "</tr>";
+    
+  })
+  document.getElementById("cart_list").innerHTML = tbody.join(" "); 
+  document.getElementById("total_price").innerHTML = calculateTotal(); //Mostramos en pantalla el valor del total del carro llamando a la funcion y mostrando el valor que nos retorna.
 }
 
 // ** Nivell II **
@@ -170,6 +186,6 @@ function removeFromCart(id) {
 }
 
 function open_modal() {
-  console.log("Open Modal");
+  console.log("Open Modal"); 
   printCart();
 }
