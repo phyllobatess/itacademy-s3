@@ -83,8 +83,6 @@ function buy(id) {
   }
   // 2. Add found product to the cartList array
   cartList.push(selectedProduct);
-   //console.log(cartList);
-  // calculateTotal();
   generateCart();
 }
 
@@ -101,7 +99,6 @@ function calculateTotal() {
   total = 0;
   // Calculate total price of the cart using the "cartList" array. 
   //No tiene en cuenta los descuentos:
-  
   for (let i = 0; i < cart.length; i++) {
     total += cart[i].subtotal;
   }
