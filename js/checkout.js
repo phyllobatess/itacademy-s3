@@ -47,9 +47,9 @@ inputs.forEach((input) => {
   input.addEventListener("keyup", validarFormulario); // se ejecuta cuando levanto la tecla
   input.addEventListener("blur", validarFormulario); //cuando hacemos click fuera de los campos a rellenar se ejecta.
 });
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault(); //evita que al pulsar submit, guarde los datos y cambie la direccion del browser.
-});
+ formulario.addEventListener("submit", (e) => {
+   e.preventDefault(); //evita que al pulsar submit, guarde los datos y cambie la direccion del browser.
+ });
 
 
 //Otra forma de hacerlo abajo, pero ésta no es dinámica y no valida el input en el momento, si no cuando se pulsa el boton SUBMIT valida todos los campos a la vez:

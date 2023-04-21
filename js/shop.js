@@ -129,10 +129,9 @@ function generateCart() {
   cartList.length=0; //Vaciamos el array cartList una vez generamos el arr CART.
   applyPromotionsCart();
 }
-
+// Apply promotions to each item in the array "cart"
 // Exercise 5
 function applyPromotionsCart() {
-  // Apply promotions to each item in the array "cart"
   for (let i = 0; i < cart.length; i++) { //Para cada elemento de cart comprobamos las dos condiciones:
     if (cart[i].name == "cooking oil" && cart[i].quantity >= 3) {
       cart[i].price = 10;
@@ -144,15 +143,12 @@ function applyPromotionsCart() {
       cart[i].subtotal = cart[i].price * cart[i].quantity;
       cart[i].subtotalWithDiscount = cart[i].price * cart[i].quantity;;
     }
-
   }
   console.log(cart);
 }
-
 // Exercise 6
   // Fill the shopping cart modal manipulating the shopping cart dom
 function printCart() {
-
   document.getElementById("cart_list").innerHTML = '';
   let tbody = cart.map(function(c){
     return "<tr>" +
@@ -161,7 +157,6 @@ function printCart() {
                       "<td>"+c.quantity+"</td>" +
                       "<td>"+c.subtotal+"</td>" +
                     "</tr>";
-    
   })
   document.getElementById("cart_list").innerHTML = tbody.join(" "); 
   document.getElementById("total_price").innerHTML = calculateTotal(); //Mostramos en pantalla el valor del total del carro llamando a la funcion y mostrando el valor que nos retorna.
@@ -174,6 +169,28 @@ function addToCart(id) {
   // Refactor previous code in order to simplify it
   // 1. Loop for to the array products to get the item to add to cart
   // 2. Add found product to the cart array or update its quantity in case it has been added previously.
+  for (let i = 0; i < products.length; i++) {
+    if (products[i].id == id) {
+      const indice = cart.findIndex((e) => e.name === products[i].name); //utilizamos método findIndex que nos devuelve el primer índice en que encuentra el elemento o "-1" si no lo encuentra, loopeará dentro del array cart comparando las key "name" de cart y cartList.
+      if (indice == -1) {
+        //Si NO está en el arr CART, entonces le hacemos el push a CART con las nuevas propiedades del objeto:
+        cart.push({
+          name: products[i].name,
+          price: products[i].price,
+          type: products[i].type,
+          quantity: 1,
+          subtotal: products[i].price,
+          subtotalWithDiscount: undefined,
+        });
+      } else {
+        //En caso de que el elemento ya esté dentro del array CART, le añadimos +1 QUANTITY y el subtotal actualizado:
+        cart[indice].quantity++;
+        cart[indice].subtotal = cart[indice].price * cart[indice].quantity;
+      }
+    }
+  }
+  applyPromotionsCart();
+  printCart();
 }
 
 // Exercise 8
