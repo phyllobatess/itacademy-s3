@@ -113,6 +113,7 @@ function generateCart() {
         const index = cart.findIndex(e => e.name === cartList[i].name)//utilizamos método findIndex que nos devuelve el primer índice en que encuentra el elemento o "-1" si no lo encuentra, loopeará dentro del array cart comparando las key "name" de cart y cartList.
         if (index == -1) { //Si NO está en el arr CART, entonces le hacemos el push a CART con las nuevas propiedades del objeto:
           cart.push({
+            id:cartList[i].id,
             name:cartList[i].name,
             price:cartList[i].price,
             type:cartList[i].type,
@@ -195,8 +196,22 @@ function addToCart(id) {
 
 // Exercise 8
 function removeFromCart(id) {
-  // 1. Loop for to the array products to get the item to add to cart
-  // 2. Add found product to the cartList array
+  let itemRemoved;
+  for (let i = 0; i < cart.length; i++){
+    if (cart[i].id == id) {
+      if (cart[i].quantity > 1) {
+        cart[i].quantity--;
+      }
+      else  {
+        itemRemoved = cart.indexOf(cart[i])
+        cart.splice(itemRemoved,1)
+      }
+    }
+      
+  }
+  applyPromotionsCart();
+  calculateTotal();
+  printCart();
 }
 
 function open_modal() {
